@@ -9,7 +9,7 @@ const format = CSVFormatter(Object.keys(headers), {
   separator: "|", // default is ;
   missed: "Empty", // default is 'N/A'
   newLine: "\n", // default is '\n'
-  wrap: false, // default is true
+  wrap: true, // default is true
 });
 
 const users: IUser[] = [

@@ -32,24 +32,23 @@ function CSVFormatter(headers: string[], config: IConfig = defaultConfig) {
     let resultStr = "";
     for (const key of headers) {
       if (data[key] === undefined || data[key] === null) {
-        resultStr += config.missed;
+        resultStr += wrap ? `"${missed}"` : missed;
       } else {
-        resultStr += data[key];
-      }
+        resultStr += wrap ? `"${data[key]}"` : data[key];
+      }      
       if (headers.indexOf(key) == headers.length - 1) {
-        resultStr += config.newLine;
+        resultStr += newLine;
       } else {
-        resultStr += config.separator;
+        resultStr += separator;
       }
     }
-    return config.wrap ? `"${resultStr}"` : resultStr;
+    return resultStr;
   };
 }
 
 const dumpUser = (user: IUser) => {
   user.birthDate = moment(user.birthDate).format();
   return user;
-  // return same user, but format date using moment
 };
 
 export { CSVFormatter, type IUser, dumpUser };
