@@ -29,20 +29,16 @@ function CSVFormatter(headers: string[], config: IConfig = defaultConfig) {
   } = config;
 
   return (data: any) => {
-    let resultStr = "";
-    for (const key of headers) {
-      if (data[key] === undefined || data[key] === null) {
-        resultStr += wrap ? `"${missed}"` : missed;
-      } else {
-        resultStr += wrap ? `"${data[key]}"` : data[key];
-      }      
-      if (headers.indexOf(key) == headers.length - 1) {
-        resultStr += newLine;
-      } else {
-        resultStr += separator;
-      }
-    }
-    return resultStr;
+    const records = headers
+      .map((key) => {
+        if (data[key] === undefined || data[key] === null) {
+          return wrap ? `"${missed}"` : missed;
+        }
+        return wrap ? `"${data[key]}"` : data[key];
+      })
+      .join(separator);
+
+    return `${records}${newLine}`;
   };
 }
 
